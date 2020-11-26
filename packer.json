@@ -1,0 +1,48 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": ""
+  },
+
+  "provisioners": [
+    {
+        "type": "shell",
+        "execute_command": "echo 'ubuntu' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+        "inline": [
+            "sleep 30",
+	    "sudo amazon-linux-extras install ansible2 -y",
+            "sudo yum install java-1.8.0 java-1.8.0-openjdk-devel tomcat8-webapps -y",
+            "sudo yum remove java-1.7.0-openjdk  -y"
+        ]
+
+    },
+    {
+      "type": "file",
+      "source": "./packer.json",
+      "destination": "/home/ec2-user/"
+    },
+    {
+      "type": "ansible-local",
+      "playbook_file": "./ansible-playbook.yml"
+    }
+  ],
+
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "ap-south-1",
+    "source_ami": "ami-07ffafbe4f758f87b",
+    "instance_type": "t2.small",
+    "ssh_username": "ec2-user",
+    "ami_name": "packer-example {{timestamp}}",
+    "vpc_id": "vpc-d7896bbe",
+    "subnet_id":"subnet-4a04e723",
+    "launch_block_device_mappings": [{
+      "device_name": "/dev/xvda",
+      "volume_size": 30,
+      "volume_type": "gp2",
+      "delete_on_termination": true
+    }]
+  }]
+}

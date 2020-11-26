@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become_user: root
+  become_method: sudo
+  become: yes
+  tasks:
+   - name: install Apache server
+     yum:
+       name: 
+        - httpd
+        - htop
+       state: latest
+   - name: enable and start Apache server
+     service:
+       name: httpd
+       enabled: yes
+       state: started
+
