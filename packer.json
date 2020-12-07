@@ -22,11 +22,6 @@
       "destination": "/home/ec2-user/"
     },
     {
-      "type": "file",
-      "source": "./aaa",
-      "destination": "/home/ec2-user/"
-    },
-    {
       "type": "ansible-local",
       "playbook_file": "./ansible-playbook.yml"
     }
