@@ -24,6 +24,17 @@
     {
       "type": "ansible-local",
       "playbook_file": "./ansible-playbook.yml"
+    },
+    {
+      "type": "file",
+      "source": "./index.html",
+      "destination": "/home/ec2-user/"
+    },
+    {
+      "type": "shell",
+      "inline": [
+              "sudo cp /home/ec2-user/index.html /var/www/html/"
+      ]
     }
   ],
 
