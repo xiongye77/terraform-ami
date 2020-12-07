@@ -28,7 +28,7 @@ resource "aws_security_group" "dfsc_bastion_sg" {
 # CREATE BASTION HOST IN EU-WEST-1A PUBLIC SUBNET
 
 resource "aws_instance" "dfsc_bastion_host-1a" {
-  ami = "ami-055309b1e3b166cf3"
+  ami = "ami-06e488a5bdbcdb529"
   instance_type = "t2.micro"
   key_name = aws_key_pair.ssh-key.key_name
   associate_public_ip_address = true
